@@ -1,0 +1,83 @@
+html {
+  height: 100%;
+}
+
+body {
+  background: -webkit-linear-gradient(left top, #510606 , #060000); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(bottom right, #510606, #060000); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(bottom right, #510606, #060000); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to bottom right, #510606 , #060000); /* Standard syntax (must be last) */
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  color: #fff;
+  height: 100%;
+  margin: 0;
+}
+
+/* Positioning for actors & movies */
+.one {
+
+}
+
+.two {
+  
+}
+
+.three {
+  
+}
+
+.four {
+  
+}
+
+.five {
+  
+}
+
+.six {
+  
+}
+
+.seven {
+  
+}
+
+.eight {
+  
+}
+
+.nine {
+  
+}
+
+.ten {
+  
+}
+
+.eleven {
+  
+}
+
+.twelve {
+  
+}
+
+/* Images */
+.img {
+  height: 100px;
+  width: 100px;
+}
+
+.actor .img {
+  content: url('images/person.jpg');
+}
+
+.movie .img {
+  content: url('images/movie.jpg');
+}
+
+/* Oscar */
+.oscar {
+  
+}

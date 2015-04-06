@@ -16,23 +16,31 @@ body {
   margin: 0;
 }
 
+/* Positioning */
+
 .board {
   margin: 50px auto;
-  width: 800px;
+  width: 1238px;
 }
 
 .row {
   clear: both;
+  width: 100%;
 }
 
-.middle {
+.middle-actor {
   float: right;
+}
+
+.middle-row {
+  text-align: center;
 }
 
 /* Styles, images for actors & movies */
 .actor,
 .movie,
-.oscar {
+.oscar,
+.goal {
   background: #3A3930;
   margin: 5px;
   border-radius: 10px;
@@ -43,22 +51,29 @@ body {
 
 .img {
   height: 100px;
+  margin: 0 auto;
+  padding-bottom: 10px;
   width: 100px;
 }
 
 .actor .img {
-  content: url('images/person.jpg');
+  background-image: url('images/person.jpg');
 }
 
 .movie .img {
-  content: url('images/movie.jpg');
+  background-image: url('images/movie.jpg');
 }
 
 /* Oscar */
 .oscar .img {
-  content: url('images/oscar.jpg');
+  background-image: url('images/oscar.jpg');
 }
 
-.name {
-  height:30px;
+/* Goal */
+.goal {
+  height: 130px;
+}
+
+h2 {
+  margin: 0;
 }

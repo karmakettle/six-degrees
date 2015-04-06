@@ -14,56 +14,94 @@ body {
   margin: 0;
 }
 
-/* Positioning for actors & movies */
-.one {
+.board {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
 
+/* Positioning for actors & movies */
+
+.one {
+  position: absolute;
+  top: 10%;
+  left: 15%;
 }
 
 .two {
-  
+  position: absolute;
+  top: 4%;
+  left: 28%;
 }
 
 .three {
-  
+  position: absolute;
+  top: -1%;
+  left: 41%;
 }
 
 .four {
-  
+  position: absolute;
+  top: 2%;
+  left: 55%;
 }
 
 .five {
-  
+  position: absolute;
+  top: 9%;
+  left: 70%;
 }
 
 .six {
-  
+  position: absolute;
+  top: 25%;
+  left: 83%;
 }
 
 .seven {
-  
+  position: absolute;
+  top: 55%;
+  left: 75%;
 }
 
 .eight {
-  
+  position: absolute;
+  top: 64%;
+  left: 63%;
 }
 
 .nine {
-  
+  position: absolute;
+  top: 67%;
+  left: 51%;
 }
 
 .ten {
-  
+  position: absolute;
+  top: 67%;
+  left: 40%;
 }
 
 .eleven {
-  
+  position: absolute;
+  top: 64%;
+  left: 28%;
 }
 
 .twelve {
-  
+  position: absolute;
+  top: 53%;
+  left: 17%;
 }
 
-/* Images */
+/* Styles, images for actors & movies */
+.actor,
+.movie {
+  margin: 5px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
 .img {
   height: 100px;
   width: 100px;
@@ -79,5 +117,11 @@ body {
 
 /* Oscar */
 .oscar {
-  
+  position: absolute;
+  top: 32%;
+  left: 10%;
+}
+
+.oscar .img {
+  content: url('images/oscar.jpg');
 }

@@ -1,3 +1,5 @@
+/* background-image: radial-gradient(90px at 60px 50% , #000000 0%, #000000 14px, rgba(0, 0, 0, 0.3) 18px, rgba(0, 0, 0, 0) 19px); */
+
 html {
   height: 100%;
 }
@@ -15,91 +17,28 @@ body {
 }
 
 .board {
-  position: relative;
-  height: 100%;
-  width: 100%;
+  margin: 50px auto;
+  width: 800px;
 }
 
-/* Positioning for actors & movies */
-
-.one {
-  position: absolute;
-  top: 10%;
-  left: 15%;
+.row {
+  clear: both;
 }
 
-.two {
-  position: absolute;
-  top: 4%;
-  left: 28%;
-}
-
-.three {
-  position: absolute;
-  top: -1%;
-  left: 41%;
-}
-
-.four {
-  position: absolute;
-  top: 2%;
-  left: 55%;
-}
-
-.five {
-  position: absolute;
-  top: 9%;
-  left: 70%;
-}
-
-.six {
-  position: absolute;
-  top: 25%;
-  left: 83%;
-}
-
-.seven {
-  position: absolute;
-  top: 55%;
-  left: 75%;
-}
-
-.eight {
-  position: absolute;
-  top: 64%;
-  left: 63%;
-}
-
-.nine {
-  position: absolute;
-  top: 67%;
-  left: 51%;
-}
-
-.ten {
-  position: absolute;
-  top: 67%;
-  left: 40%;
-}
-
-.eleven {
-  position: absolute;
-  top: 64%;
-  left: 28%;
-}
-
-.twelve {
-  position: absolute;
-  top: 53%;
-  left: 17%;
+.middle {
+  float: right;
 }
 
 /* Styles, images for actors & movies */
 .actor,
-.movie {
+.movie,
+.oscar {
+  background: #3A3930;
   margin: 5px;
   border-radius: 10px;
+  display: inline-block;
   overflow: hidden;
+  padding: 10px;
 }
 
 .img {
@@ -116,12 +55,10 @@ body {
 }
 
 /* Oscar */
-.oscar {
-  position: absolute;
-  top: 32%;
-  left: 10%;
-}
-
 .oscar .img {
   content: url('images/oscar.jpg');
+}
+
+.name {
+  height:30px;
 }

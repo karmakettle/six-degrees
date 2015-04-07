@@ -1,7 +1,6 @@
 
 var app = {
   init: function(){
-    app.actors = [];
     app.generateRandom();
   },
 
@@ -11,12 +10,12 @@ var app = {
       url: "http://api.themoviedb.org/3/person/popular?api_key=b94d3520d22303948e683ac7f88387c7",
       accept: "application/json"
     }).done(function(personList){
-      app.startActor = personList.results[Math.floor(Math.random() * personList.results.length)];
+      var startActor = personList.results[Math.floor(Math.random() * personList.results.length)];
       var goalActor = personList.results[Math.floor(Math.random() * personList.results.length)];
-      app.actors.push(app.startActor);
-      app.displayActorInfo($('#start'), app.startActor);
-      app.goal = goalActor;
-      app.displayActorInfo($('.goal'), goalActor);
+      app.startActor = [startActor.name, startActor.profile_path];
+      app.goalActor = [goalActor.name, goalActor.profile_path];
+      app.displayActorInfo($('#start'), app.startActor[0], app.startActor[1]);
+      app.displayActorInfo($('.goal'), app.goalActor[0], app.goalActor[1]);
     });
   },
 
@@ -38,23 +37,24 @@ var app = {
     });
   },
 
-  displayActorInfo: function(node, actor){
+  displayActorInfo: function(node, nameOrTitle, path){
     // get image property from object and add to appropriate element
-    var imagePath = "http://image.tmdb.org/t/p/original" + actor.profile_path;
+    var imagePath = "http://image.tmdb.org/t/p/original" + path;
     node.children('.img').css({
               'background-image': 'url(' + imagePath + ')',
               'background-size': 'cover',
               'background-repeat': 'no-repeat'
             });
     node.children('input').remove();
-    node.append('<h2>' + actor.name + '</h2>');
+    node.append('<h2>' + nameOrTitle + '</h2>');
   },
 
   displayMovieSearch: function(node, results){
     var dropdown = $('<ul class="active"></ul>');
     for ( var i = 0; i < results.length; i++ ) {
       var movie = results[i];
-      dropdown.append('<li data-id="' + movie.id + '">' + movie.title + ', ' + movie.release_date + '</li>')
+      dropdown.append('<li data-id="' + movie.id + '" data-title="' + movie.title + '" data-image="' + 
+        movie.poster_path + '">' + movie.title + ', ' + movie.release_date + '</li>')
     }
     node.after(dropdown);
     $('li').on('click', app.selectMovie);
@@ -64,7 +64,7 @@ var app = {
     var dropdown = $('<ul class="active"></ul>');
     for ( var i = 0; i < results.length; i++ ) {
       var actor = results[i];
-      dropdown.append('<li data-name="' + actor.name + '">' + actor.name + '</li>')
+      dropdown.append('<li data-name="' + actor.name + '" data-image="' + actor.profile_path + '">' + actor.name + '</li>')
     }
     node.after(dropdown);
     $('li').on('click', app.selectActor);
@@ -72,7 +72,8 @@ var app = {
 
   selectActor: function(){
     var name = $(this).data('name');
-    app.compareActor = name;
+    var image = $(this).data('image');
+    app.compareActor = [name, image];
     // if there's already a compareMovie in existence, compare, remove the display box
     if ( app.compareMovie ) app.confirmConnection();
     // remove the display box
@@ -81,7 +82,10 @@ var app = {
 
   selectMovie: function(){
     var id = $(this).data('id');
-    app.compareMovie = id;
+    var title = $(this).data('title');
+    var image = $(this).data('image');
+    debugger;
+    app.compareMovie = [id, title, image];
     // if there's already a compareActor in existence, compare
     if ( app.compareActor ) app.confirmConnection();
     // remove the display box
@@ -91,7 +95,7 @@ var app = {
   confirmConnection: function(){
     // get movie credits from compareMovie
     $.ajax({
-      url: "http://api.themoviedb.org/3/movie/" + app.compareMovie + "/credits?api_key=b94d3520d22303948e683ac7f88387c7",
+      url: "http://api.themoviedb.org/3/movie/" + app.compareMovie[0] + "/credits?api_key=b94d3520d22303948e683ac7f88387c7",
       accept: "application/json"
     }).done(function(results){
       var cast = results.cast.map(function(person){
@@ -99,9 +103,10 @@ var app = {
       });
 
       // if both actors' names are in the movie's credits
-      if ( cast.indexOf(app.compareActor) !== -1 && cast.indexOf(app.startActor.name) !== -1 ) {
-        console.log("yeppers!");
+      if ( cast.indexOf(app.compareActor[0]) !== -1 && cast.indexOf(app.startActor[0]) !== -1 ) {
         //'solidify' the fields and remove disabled from the next ones
+        app.displayActorInfo($('.compare-actor'), app.compareActor[0], app.compareActor[1]);
+        app.displayActorInfo($('.compare-movie'), app.compareMovie[1], app.compareMovie[2]);
           // if goalActor, winning sequence!
           // else
             // startActor = compareActor;
@@ -125,7 +130,6 @@ $(document).ready(function(){
       var guess = $(this).val();
       // if this parent's class is a movie
       if ( $(this).parent().hasClass('movie') ) {
-        console.log('hooray movie!');
         // get list of possible matches by searching tmdb and display options
         app.movieSearch($(this), guess);
       } else {

@@ -20,20 +20,21 @@ var app = {
     });
   },
 
-  getActor: function(id, isInit){
-    $.ajax({
-      url: "http://api.themoviedb.org/3/person/" + id + "?api_key=b94d3520d22303948e683ac7f88387c7",
-      accept: "application/json"
-    }).done(function(data){
-    })
-  },
-
   movieSearch: function(node, guess){
     $.ajax({
       url: "http://api.themoviedb.org/3/search/movie?api_key=b94d3520d22303948e683ac7f88387c7&query=" + guess,
       accept: "application/json"
     }).done(function(results){
       app.displayMovieSearch(node, results.results);
+    });
+  },
+
+  actorSearch: function(node, guess){
+    $.ajax({
+      url: "http://api.themoviedb.org/3/search/person?api_key=b94d3520d22303948e683ac7f88387c7&query=" + guess,
+      accept: "application/json"
+    }).done(function(results){
+      app.displayActorSearch(node, results.results);
     });
   },
 
@@ -50,11 +51,19 @@ var app = {
   },
 
   displayMovieSearch: function(node, results){
-    console.log(results);
     var resultHtml = "";
     for ( var i = 0; i < results.length; i++ ) {
       var movie = results[i];
       resultHtml += "<li>" + movie.title + ", " + movie.release_date + "</li>";
+    }
+    node.after('<div class="active">' + resultHtml + '</div>');
+  },
+
+  displayActorSearch: function(node, results){
+    var resultHtml = "";
+    for ( var i = 0; i < results.length; i++ ) {
+      var actor = results[i];
+      resultHtml += "<li>" + actor.name + "</li>";
     }
     node.after('<div class="active">' + resultHtml + '</div>');
   }
@@ -69,11 +78,11 @@ $(document).ready(function(){
       // if this parent's class is a movie
       if ( $(this).parent().hasClass('movie') ) {
         console.log('hooray movie!');
-        // get list of possible matches by searching tmdb
+        // get list of possible matches by searching tmdb and display options
         app.movieSearch($(this), guess);
-        // display list of options underneath input
+      } else {
+        app.actorSearch($(this), guess);
       }
-      // if it's a movie, check last actor?
     }
   });
 });

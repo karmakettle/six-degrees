@@ -114,7 +114,7 @@ var app = {
             if ( app.compareActor[0] === app.goalActor[0] ) {
               $('.error').css('color', 'black');
               $('.error').text("YOU WON");
-              $('.oscar').removeClass('hidden');
+              //$('.oscar').removeClass('hidden');
             } else {
               app.connectionsLeft--;
               $('.connections-left span').text(app.connectionsLeft);

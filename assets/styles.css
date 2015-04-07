@@ -16,9 +16,7 @@ body {
 }
 
 body:before {
-  background-image: url('http://ak2.picdn.net/shutterstock/videos/766603/preview/stock-footage-film-rolling-out-of-a-film-reel.jpg');
-  background-position: 50% 0;
-  background-repeat: no-repeat;
+  background: url('http://ak2.picdn.net/shutterstock/videos/766603/preview/stock-footage-film-rolling-out-of-a-film-reel.jpg') no-repeat center center fixed;
   background-size: cover;
   height: 100%;
   opacity: 0.05;
@@ -27,7 +25,6 @@ body:before {
   top: 0;
   width: 100%;
   content: '';
-  display: block;
   z-index: -1;
 }
 

@@ -11,10 +11,10 @@ var app = {
       url: "http://api.themoviedb.org/3/person/popular?api_key=b94d3520d22303948e683ac7f88387c7",
       accept: "application/json"
     }).done(function(personList){
-      var startActor = personList.results[Math.floor(Math.random() * personList.results.length)];
+      app.startActor = personList.results[Math.floor(Math.random() * personList.results.length)];
       var goalActor = personList.results[Math.floor(Math.random() * personList.results.length)];
-      app.actors.push(startActor);
-      app.displayActorInfo($('#start'), startActor);
+      app.actors.push(app.startActor);
+      app.displayActorInfo($('#start'), app.startActor);
       app.goal = goalActor;
       app.displayActorInfo($('.goal'), goalActor);
     });
@@ -64,33 +64,18 @@ var app = {
     var dropdown = $('<ul class="active"></ul>');
     for ( var i = 0; i < results.length; i++ ) {
       var actor = results[i];
-      dropdown.append('<li data-id="' + actor.id + '">' + actor.name + '</li>')
+      dropdown.append('<li data-name="' + actor.name + '">' + actor.name + '</li>')
     }
     node.after(dropdown);
     $('li').on('click', app.selectActor);
   },
 
   selectActor: function(){
-    var id = $(this).data('id');
-    app.compareActor = id;
+    var name = $(this).data('name');
+    app.compareActor = name;
     // if there's already a compareMovie in existence, compare, remove the display box
-    if ( app.compareMovie ) {
-      // if the actor's name is in the movie's credits, 'solidify' the fields and remove disabled from the next ones
-      if ( app.confirmConnection() ) {
-        // if goalActor, winning sequence!
-        // else
-          // startActor = compareActor;
-          // compareActor = undefined;
-          // compareMovie = undefined;
-          // remove .active class to remove dropdown
-          // remove inputs and add h2s with names and photos
-          // set background / highlight
-      } else {
-        // there's not a match, display error
-        console.log("These actors are not in a movie together.")
-      }
-    }
-
+    if ( app.compareMovie ) app.confirmConnection();
+    // remove the display box
     $('.active').remove();
   },
 
@@ -114,6 +99,8 @@ var app = {
       });
 
       // if both actors' names are in the movie's credits
+      if ( cast.indexOf(app.compareActor) !== -1 && cast.indexOf(app.startActor.name) !== -1 ) {
+        console.log("yeppers!");
         //'solidify' the fields and remove disabled from the next ones
           // if goalActor, winning sequence!
           // else
@@ -123,6 +110,9 @@ var app = {
             // remove .active class to remove dropdown
             // remove inputs and add h2s with names and photos
             // set background / highlight
+      } else {
+        console.log("These actors are not in a movie together, yo");
+      }
     });
   }
 

@@ -42,10 +42,11 @@ body {
 .oscar,
 .goal {
   background: #3A3930;
-  margin: 5px;
   border-radius: 10px;
   display: inline-block;
   overflow: hidden;
+  margin: 5px;
+  max-width: 173px;
   padding: 10px;
 }
 
@@ -64,6 +65,10 @@ body {
   background-image: url('images/movie.jpg');
 }
 
+h2 {
+  margin: 0;
+}
+
 /* Oscar */
 .oscar .img {
   background-image: url('images/oscar.jpg');
@@ -74,6 +79,10 @@ body {
   height: 130px;
 }
 
-h2 {
-  margin: 0;
+/* Dropdown movie results */
+.active {
+  background: #fff;
+  color: black;
+  list-style: none;
+  position: absolute;
 }

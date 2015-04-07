@@ -13,6 +13,9 @@ var app = {
     }).done(function(personList){
       var startActor = personList.results[Math.floor(Math.random() * personList.results.length)];
       var goalActor = personList.results[Math.floor(Math.random() * personList.results.length)];
+      while ( startActor === goalActor ) {
+        goalActor = personList.results[Math.floor(Math.random() * personList.results.length)];
+      }
       app.startActor = [startActor.name, startActor.profile_path];
       app.goalActor = [goalActor.name, goalActor.profile_path];
       app.displayActorInfo($('#start'), app.startActor[0], app.startActor[1]);
@@ -109,7 +112,8 @@ var app = {
           app.displayActorInfo($('.compare-movie'), app.compareMovie[1], app.compareMovie[2]);
             // if goalActor, winning sequence!
             if ( app.compareActor[0] === app.goalActor[0] ) {
-              console.log("YOU WON CONGRATULATIONS YEAH");
+              $('.error').css('color', 'black');
+              $('.error').text("YOU WON CONGRATULATIONS YEAH");
             } else {
               app.connectionsLeft--;
               $('.connections-left span').text(app.connectionsLeft);
@@ -131,11 +135,11 @@ var app = {
                     <input type="text"></input>\
                   </div>');
               } else {
-                console.log('No more connections, please refresh the page until a better version of this app comes out.')
+                $('.error').text('No more connections, please refresh the page until a better version of this app comes out.');
               }
             }
           } else {
-            console.log("These actors are not in a movie together, yo");
+            $('.error').text("These actors are not in a movie together, yo");
           }
         });
   }
@@ -154,5 +158,9 @@ $(document).ready(function(){
         app.actorSearch($(this), guess);
       }
     }
+  });
+
+  $('.board').on('focus', 'input', function(e){
+    $('.error').text('');
   });
 });

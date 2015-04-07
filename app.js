@@ -1,6 +1,7 @@
 
 var app = {
   init: function(){
+    app.connectionsLeft = 6;
     app.generateRandom();
   },
 
@@ -93,42 +94,55 @@ var app = {
 
   confirmConnection: function(){
     // get movie credits from compareMovie
-    $.ajax({
-      url: "http://api.themoviedb.org/3/movie/" + app.compareMovie[0] + "/credits?api_key=b94d3520d22303948e683ac7f88387c7",
-      accept: "application/json"
-    }).done(function(results){
-      var cast = results.cast.map(function(person){
-        return person.name;
-      });
+      $.ajax({
+        url: "http://api.themoviedb.org/3/movie/" + app.compareMovie[0] + "/credits?api_key=b94d3520d22303948e683ac7f88387c7",
+        accept: "application/json"
+      }).done(function(results){
+        var cast = results.cast.map(function(person){
+          return person.name;
+        });
 
-      // if both actors' names are in the movie's credits
-      if ( cast.indexOf(app.compareActor[0]) !== -1 && cast.indexOf(app.startActor[0]) !== -1 ) {
-        // remove inputs and add h2s with names and photos
-        app.displayActorInfo($('.compare-actor'), app.compareActor[0], app.compareActor[1]);
-        app.displayActorInfo($('.compare-movie'), app.compareMovie[1], app.compareMovie[2]);
-          // if goalActor, winning sequence!
-          if ( app.compareActor[0] === app.goalActor[0] ) {
-            console.log("YOU WON CONGRATULATIONS YEAH");
+        // if both actors' names are in the movie's credits
+        if ( cast.indexOf(app.compareActor[0]) !== -1 && cast.indexOf(app.startActor[0]) !== -1 ) {
+          // remove inputs and add h2s with names and photos
+          app.displayActorInfo($('.compare-actor'), app.compareActor[0], app.compareActor[1]);
+          app.displayActorInfo($('.compare-movie'), app.compareMovie[1], app.compareMovie[2]);
+            // if goalActor, winning sequence!
+            if ( app.compareActor[0] === app.goalActor[0] ) {
+              console.log("YOU WON CONGRATULATIONS YEAH");
+            } else {
+              app.connectionsLeft--;
+              $('.connections-left span').text(app.connectionsLeft);
+
+              if ( app.connectionsLeft > 0 ) {
+                // reset variables, prepare for next guess
+                app.startActor = app.compareActor;
+                app.compareActor = undefined;
+                app.compareMovie = undefined;
+                $('.compare-movie').removeClass('compare-movie');
+                $('.compare-actor').removeClass('compare-actor');
+                $('.board').append('\
+                  <div class="movie compare-movie">\
+                    <div class="img"></div>\
+                    <input type="text"></input>\
+                  </div>\
+                  <div class="actor compare-actor">\
+                    <div class="img"></div>\
+                    <input type="text"></input>\
+                  </div>');
+              } else {
+                console.log('No more connections, please refresh the page until a better version of this app comes out.')
+              }
+            }
           } else {
-            // reset variables, prepare for next guess
-            app.startActor = app.compareActor;
-            app.compareActor = undefined;
-            app.compareMovie = undefined;
-            $('.compare-movie').next().next().addClass('compare-movie');
-            $('.compare-movie').removeClass('compare-movie');
-            $('.compare-actor').next().next().addClass('compare-actor');
-            $('.compare-actor').removeClass('compare-actor');
+            console.log("These actors are not in a movie together, yo");
           }
-      } else {
-        console.log("These actors are not in a movie together, yo");
-      }
-    });
+        });
   }
-
 };
 
 $(document).ready(function(){
-  $('input').keypress(function(e){
+  $('.board').on('keypress', 'input', function(e){
     if ( e.keyCode === 13 ) {
       // get info:  whether it's actor or movie
       var guess = $(this).val();

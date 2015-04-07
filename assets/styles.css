@@ -84,5 +84,10 @@ h2 {
   background: #fff;
   color: black;
   list-style: none;
+  padding: 0 15px;
   position: absolute;
+}
+
+li {
+  padding: 2px 0;
 }

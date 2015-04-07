@@ -110,10 +110,11 @@ var app = {
           // remove inputs and add h2s with names and photos
           app.displayActorInfo($('.compare-actor'), app.compareActor[0], app.compareActor[1]);
           app.displayActorInfo($('.compare-movie'), app.compareMovie[1], app.compareMovie[2]);
-            // if goalActor, winning sequence!
+            // if compareActor's name is the same as goalActor's, winning sequence!
             if ( app.compareActor[0] === app.goalActor[0] ) {
               $('.error').css('color', 'black');
-              $('.error').text("YOU WON CONGRATULATIONS YEAH");
+              $('.error').text("YOU WON");
+              $('.oscar').removeClass('hidden');
             } else {
               app.connectionsLeft--;
               $('.connections-left span').text(app.connectionsLeft);
@@ -139,7 +140,7 @@ var app = {
               }
             }
           } else {
-            $('.error').text("These actors are not in a movie together, yo");
+            $('.error').text("At least one of these actors is not in this movie");
           }
         });
   }

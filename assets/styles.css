@@ -15,10 +15,26 @@ body {
   margin: 0;
 }
 
+body:before {
+  background-image: url('http://ak2.picdn.net/shutterstock/videos/766603/preview/stock-footage-film-rolling-out-of-a-film-reel.jpg');
+  background-position: 50% 0;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+  opacity: 0.05;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  content: '';
+  display: block;
+  z-index: -1;
+}
+
 /* Positioning */
 
 .board {
-  margin: 50px auto;
+  margin: 10px auto;
   width: 1238px;
 }
 
@@ -57,15 +73,24 @@ h2 {
   margin: 0;
 }
 
+input {
+    border: 2px solid rgb(182, 191, 200);
+    border-radius: 5px;
+    margin: 4px;
+    line-height: 20px;
+    z-index: 1;
+}
+
 /* Site Logo */
 h1 {
   color: #fff;
+  font-family: 'Muli', sans-serif;
   font-size: 70px;
-  margin: 10px 50px;
+  margin: 20px 0;
   text-align: center;
   transform: rotate(-0.03turn);
   vertical-align: top;
-  width: 350px;
+  width: 500px;
 }
 
 /* Message board */
@@ -90,8 +115,16 @@ li {
 }
 
 /* Oscar */
-.oscar .img {
+.oscar {
   background-image: url('images/oscar.jpg');
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
+.hidden {
+  display: none;
 }
 
 /* Error */

@@ -23,19 +23,6 @@ body {
   width: 1238px;
 }
 
-.row {
-  clear: both;
-  width: 100%;
-}
-
-.middle-actor {
-  float: right;
-}
-
-.middle-row {
-  text-align: center;
-}
-
 /* Styles, images for actors & movies */
 .actor,
 .movie,
@@ -44,10 +31,11 @@ body {
   background: #3A3930;
   border-radius: 10px;
   display: inline-block;
-  overflow: hidden;
   margin: 5px;
-  max-width: 173px;
+  min-width: 173px;
+  overflow: hidden;
   padding: 10px;
+  text-align: center; 
 }
 
 .img {
@@ -72,11 +60,6 @@ h2 {
 /* Oscar */
 .oscar .img {
   background-image: url('images/oscar.jpg');
-}
-
-/* Goal */
-.goal {
-  height: 130px;
 }
 
 /* Dropdown movie results */

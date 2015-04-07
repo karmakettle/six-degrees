@@ -84,7 +84,6 @@ var app = {
     var id = $(this).data('id');
     var title = $(this).data('title');
     var image = $(this).data('image');
-    debugger;
     app.compareMovie = [id, title, image];
     // if there's already a compareActor in existence, compare
     if ( app.compareActor ) app.confirmConnection();
@@ -104,17 +103,22 @@ var app = {
 
       // if both actors' names are in the movie's credits
       if ( cast.indexOf(app.compareActor[0]) !== -1 && cast.indexOf(app.startActor[0]) !== -1 ) {
-        //'solidify' the fields and remove disabled from the next ones
+        // remove inputs and add h2s with names and photos
         app.displayActorInfo($('.compare-actor'), app.compareActor[0], app.compareActor[1]);
         app.displayActorInfo($('.compare-movie'), app.compareMovie[1], app.compareMovie[2]);
           // if goalActor, winning sequence!
-          // else
-            // startActor = compareActor;
-            // compareActor = undefined;
-            // compareMovie = undefined;
-            // remove .active class to remove dropdown
-            // remove inputs and add h2s with names and photos
-            // set background / highlight
+          if ( app.compareActor[0] === app.goalActor[0] ) {
+            console.log("YOU WON CONGRATULATIONS YEAH");
+          } else {
+            // reset variables, prepare for next guess
+            app.startActor = app.compareActor;
+            app.compareActor = undefined;
+            app.compareMovie = undefined;
+            $('.compare-movie').next().next().addClass('compare-movie');
+            $('.compare-movie').removeClass('compare-movie');
+            $('.compare-actor').next().next().addClass('compare-actor');
+            $('.compare-actor').removeClass('compare-actor');
+          }
       } else {
         console.log("These actors are not in a movie together, yo");
       }
